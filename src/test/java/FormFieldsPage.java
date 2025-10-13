@@ -1,5 +1,4 @@
-package com.maxkulygin.sdet;
-
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -47,46 +46,55 @@ public class FormFieldsPage {
         PageFactory.initElements(driver, this);
     }
 
+    @Step
     public FormFieldsPage fillName(String name) {
         nameField.sendKeys(name);
         return this;
     }
 
+    @Step
     public FormFieldsPage fillPassword(String password) {
         passwordField.sendKeys(password);
         return this;
     }
 
+    @Step
     public FormFieldsPage selectMilk() {
         milkCheckbox.click();
         return this;
     }
 
+    @Step
     public FormFieldsPage selectCoffee() {
         coffeeCheckbox.click();
         return this;
     }
 
+    @Step
     public FormFieldsPage selectYellow() {
         yellowCheckbox.click();
         return this;
     }
 
+    @Step
     public FormFieldsPage selectAutomationFirstElement() {
         Select select = new Select(automationDropdown);
         select.selectByIndex(1);
         return this;
     }
 
+    @Step
     public FormFieldsPage fillEmail(String email) {
         emailField.sendKeys(email);
         return this;
     }
 
+    @Step
     public int countAutomationTools() {
         return automationToolsList.size();
     }
 
+    @Step
     public String findLongestAutomationToolName() {
         String longestTool = "";
         for (WebElement tool : automationToolsList) {
@@ -98,12 +106,13 @@ public class FormFieldsPage {
         return longestTool;
     }
 
+    @Step
     public FormFieldsPage fillMessage(String message) {
         messageField.sendKeys(message);
         return this;
     }
 
-
+    @Step
     public FormFieldsPage clickSubmitButton() {
         new Actions(driver).moveToElement(submitButton).click().perform();
         return this;
