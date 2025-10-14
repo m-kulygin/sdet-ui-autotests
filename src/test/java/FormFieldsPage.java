@@ -10,7 +10,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.List;
 
 public class FormFieldsPage {
@@ -19,17 +18,17 @@ public class FormFieldsPage {
     @FindBy(id = "name-input")
     private WebElement nameField;
 
+    @FindBy(xpath = "//p[@class='red_txt']")
+    private WebElement nameRequiredWarning;
+
     @FindBy(css = "input[type=password]")
     private WebElement passwordField;
 
-    @FindBy(css = "input[type='checkbox'][value='Milk']")
-    private WebElement milkCheckbox;
+    @FindBy(css = "input[type='checkbox'][name='fav_drink']")
+    private List<WebElement> favDrinkCheckboxes;
 
-    @FindBy(css = "input[type='checkbox'][value='Coffee']")
-    private WebElement coffeeCheckbox;
-
-    @FindBy(css = "input[type='radio'][value='Yellow']")
-    private WebElement yellowCheckbox;
+    @FindBy(css = "input[type='radio'][name='fav_color']")
+    private List<WebElement> favColorsRadioButtons;
 
     @FindBy(id = "automation")
     private WebElement automationDropdown;
@@ -37,7 +36,7 @@ public class FormFieldsPage {
     @FindBy(css = "input[type='text'][id='email']")
     private WebElement emailField;
 
-    @FindBy(css = "ul li")
+    @FindBy(xpath = "//label[text()='Automation tools']/following-sibling::ul/li")
     private List<WebElement> automationToolsList;
 
     @FindBy(xpath = "//textarea[@id='message']")
@@ -63,21 +62,23 @@ public class FormFieldsPage {
         return this;
     }
 
-    @Step("Отметка чекбокса Milk")
-    public FormFieldsPage selectMilk() {
-        milkCheckbox.click();
+    @Step("Отметка чекбокса напитка {drink}")
+    public FormFieldsPage selectFavDrink(String drink) {
+        for (WebElement checkbox : favDrinkCheckboxes) {
+            if (checkbox.getCssValue("value").equals(drink)) {
+                checkbox.click();
+            }
+        }
         return this;
     }
 
-    @Step("Отметка чекбокса Coffee")
-    public FormFieldsPage selectCoffee() {
-        coffeeCheckbox.click();
-        return this;
-    }
-
-    @Step("Отметка радиокнопки цвета Yellow")
-    public FormFieldsPage selectYellow() {
-        yellowCheckbox.click();
+    @Step("Отметка радиокнопки цвета {color}")
+    public FormFieldsPage selectFavColor(String color) {
+        for (WebElement checkbox : favColorsRadioButtons) {
+            if (checkbox.getCssValue("value").equals(color)) {
+                checkbox.click();
+            }
+        }
         return this;
     }
 
@@ -104,9 +105,8 @@ public class FormFieldsPage {
         String longestTool = "";
         for (WebElement tool : automationToolsList) {
             String toolText = tool.getText();
-            if (toolText.length() > longestTool.length()) {
+            if (toolText.length() > longestTool.length())
                 longestTool = toolText;
-            }
         }
         return longestTool;
     }
@@ -123,10 +123,16 @@ public class FormFieldsPage {
         return this;
     }
 
-    @Step("Создание скриншота итогового вида формы")
-    public FormFieldsPage makeSummaryScreenshot() throws IOException {
+    @Step("Создание примера скриншота части заполненной формы")
+    public FormFieldsPage makeFormPartialScreenshot() {
         Allure.addAttachment("Скриншот",
-                new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
+                new ByteArrayInputStream(
+                        ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
         return this;
+    }
+
+    @Step("Проверка видимости предупреждения о незаполненном поле имени")
+    public boolean isDisplayedNameWarning() {
+        return nameRequiredWarning.isDisplayed();
     }
 }

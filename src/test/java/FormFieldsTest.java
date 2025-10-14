@@ -10,12 +10,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Properties;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 @DisplayName("Кейсы тестирования формы practice-automation")
 public class FormFieldsTest {
@@ -39,23 +36,21 @@ public class FormFieldsTest {
     public void testFormSubmission() throws IOException {
         formFieldsPage.fillName("Max Kulygin")
                 .fillPassword("12345678")
-                .selectMilk()
-                .selectCoffee()
-                .selectYellow()
+                .selectFavDrink("Milk")
+                .selectFavDrink("Coffee")
+                .selectFavColor("Yellow")
                 .selectAutomationFirstElement()
                 .fillEmail("akademuk97@gmail.com")
                 .fillMessage(
                         "Tools count: " + formFieldsPage.countAutomationTools()
                                 + "\nLongest tool name: " + formFieldsPage.findLongestAutomationToolName())
-                .makeSummaryScreenshot()
+                .makeFormPartialScreenshot()
                 .clickSubmitButton();
-
 
         Alert alert = driver.switchTo().alert();
         String alertText = alert.getText();
         assertEquals("Message received!", alertText);
         alert.accept();
-
     }
 
     @Test
@@ -91,6 +86,7 @@ public class FormFieldsTest {
                 .fillMessage("Nemo")
                 .clickSubmitButton();
 
+        assertTrue(formFieldsPage.isDisplayedNameWarning());
         assertFalse(isAlertPresent());
     }
 
