@@ -63,13 +63,13 @@ public class FormFieldsPage {
 
     @Step("Заполнение поля Name значением {name}")
     public FormFieldsPage fillName(String name) {
-        getWebElementAfterWait(nameField).sendKeys(name);
+        getWhenClickable(nameField).sendKeys(name);
         return this;
     }
 
     @Step("Заполнение поля Password значением {password}")
     public FormFieldsPage fillPassword(String password) {
-        getWebElementAfterWait(passwordField).sendKeys(password);
+        getWhenClickable(passwordField).sendKeys(password);
         return this;
     }
 
@@ -77,7 +77,7 @@ public class FormFieldsPage {
     public FormFieldsPage selectFavDrink(String drink) {
         for (WebElement checkbox : favDrinkCheckboxes) {
             if (Objects.equals(checkbox.getAttribute("value"), drink)) {
-                getWebElementAfterWait(checkbox).click();
+                getWhenClickable(checkbox).click();
             }
         }
         return this;
@@ -87,7 +87,7 @@ public class FormFieldsPage {
     public FormFieldsPage selectFavColor(String color) {
         for (WebElement checkbox : favColorsRadioButtons) {
             if (Objects.equals(checkbox.getAttribute("value"), color)) {
-                getWebElementAfterWait(checkbox).click();
+                getWhenClickable(checkbox).click();
             }
         }
         return this;
@@ -102,7 +102,7 @@ public class FormFieldsPage {
 
     @Step("Заполнение поля Email значением {email}")
     public FormFieldsPage fillEmail(String email) {
-        getWebElementAfterWait(emailField).sendKeys(email);
+        getWhenClickable(emailField).sendKeys(email);
         return this;
     }
 
@@ -124,7 +124,7 @@ public class FormFieldsPage {
 
     @Step("Заполнение поля Message значением {message}")
     public FormFieldsPage fillMessage(String message) {
-        getWebElementAfterWait(messageField).sendKeys(message);
+        getWhenClickable(messageField).sendKeys(message);
         return this;
     }
 
@@ -151,7 +151,7 @@ public class FormFieldsPage {
         return nameRequiredWarning.isDisplayed();
     }
 
-    private WebElement getWebElementAfterWait(WebElement element) {
+    private WebElement getWhenClickable(WebElement element) {
         return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 }

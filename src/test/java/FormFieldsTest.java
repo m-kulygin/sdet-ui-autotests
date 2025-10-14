@@ -25,7 +25,9 @@ public class FormFieldsTest {
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
         options.setPageLoadStrategy(PageLoadStrategy.EAGER);
-//        options.addArguments("--headless");
+        options.addArguments("--window-size=1920,1080");
+        options.addArguments("--start-maximized");
+        options.addArguments("--headless");
         WebDriver driver = new ChromeDriver(options);
         driver.get("https://practice-automation.com/form-fields/");
         formFieldsPage = new FormFieldsPage(driver);
