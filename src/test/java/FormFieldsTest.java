@@ -12,7 +12,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @DisplayName("Кейсы тестирования формы practice-automation")
 public class FormFieldsTest {
@@ -24,6 +25,7 @@ public class FormFieldsTest {
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
         options.setPageLoadStrategy(PageLoadStrategy.EAGER);
+//        options.addArguments("--headless");
         WebDriver driver = new ChromeDriver(options);
         driver.get("https://practice-automation.com/form-fields/");
         formFieldsPage = new FormFieldsPage(driver);
@@ -44,48 +46,41 @@ public class FormFieldsTest {
                 .fillMessage(
                         "Tools count: " + formFieldsPage.countAutomationTools()
                                 + "\nLongest tool name: " + formFieldsPage.findLongestAutomationToolName())
-                .makeFormPartialScreenshot()
+                .makeFormScreenshot()
                 .clickSubmitButton();
-
-        Alert alert = driver.switchTo().alert();
-        String alertText = alert.getText();
-        assertEquals("Message received!", alertText);
-        alert.accept();
+        assertTrue(isMessageReceivedAlertPresent());
     }
 
     @Test
     @DisplayName("Кейс 1 (позитивный): успешный сабмит с минимальным количеством данных")
     @Owner("Max Kulygin")
-    public void testFormSubmissionWithRequiredOnly() {
+    public void testFormSubmissionWithRequiredOnly() throws IOException {
         formFieldsPage.fillName("Max Kulygin")
+                .makeFormScreenshot()
                 .clickSubmitButton();
-
-        Alert alert = driver.switchTo().alert();
-        String alertText = alert.getText();
-        assertEquals("Message received!", alertText);
-        alert.accept();
+        assertTrue(isMessageReceivedAlertPresent());
     }
 
     @Test
     @DisplayName("Кейс 2 (негативный): попытка сабмита с некорректным форматом электронной почты")
     @Owner("Max Kulygin")
-    public void testFormSubmissionWithInvalidEmail() {
+    public void testFormSubmissionWithInvalidEmail() throws IOException {
         formFieldsPage.fillName("Max Kulygin")
                 .fillEmail("pochta.mailru")
+                .makeFormScreenshot()
                 .clickSubmitButton();
-
         assertFalse(isAlertPresent());
     }
 
     @Test
     @DisplayName("Кейс 3 (негативный): попытка сабмита без указания имени")
     @Owner("Max Kulygin")
-    public void testFormSubmissionWithEmptyName() {
+    public void testFormSubmissionWithEmptyName() throws IOException {
         formFieldsPage.fillPassword("12345678")
                 .fillEmail("qwe@email.ru")
                 .fillMessage("Nemo")
+                .makeFormScreenshot()
                 .clickSubmitButton();
-
         assertTrue(formFieldsPage.isDisplayedNameWarning());
         assertFalse(isAlertPresent());
     }
@@ -102,5 +97,12 @@ public class FormFieldsTest {
         } catch (NoAlertPresentException e) {
             return false;
         }
+    }
+
+    private boolean isMessageReceivedAlertPresent() {
+        Alert alert = driver.switchTo().alert();
+        String alertText = alert.getText();
+        alert.accept();
+        return alertText.equals("Message received!");
     }
 }
