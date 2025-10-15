@@ -30,7 +30,7 @@ public class FormFieldsTest {
     }
 
     @Test
-    @DisplayName("Часть 1. Автоматизация. Работа с полями и формами.")
+    @DisplayName("Часть 1. Автоматизация. Работа с полями и формами. Кейс 1: успешное заполнение и отправка формы")
     @Owner("Max Kulygin")
     public void testFormSubmission() throws IOException {
         formFieldsPage.fillName("Max Kulygin")
@@ -49,7 +49,7 @@ public class FormFieldsTest {
     }
 
     @Test
-    @DisplayName("Кейс 1 (позитивный): успешный сабмит с минимальным количеством данных")
+    @DisplayName("Кейс 2 (позитивный): успешный сабмит с минимальным количеством данных")
     @Owner("Max Kulygin")
     public void testFormSubmissionWithRequiredOnly() throws IOException {
         formFieldsPage.fillName("Max Kulygin")
@@ -59,7 +59,7 @@ public class FormFieldsTest {
     }
 
     @Test
-    @DisplayName("Кейс 2 (негативный): попытка сабмита с некорректным форматом электронной почты")
+    @DisplayName("Кейс 3 (негативный): попытка сабмита с некорректным форматом электронной почты")
     @Owner("Max Kulygin")
     public void testFormSubmissionWithInvalidEmail() throws IOException {
         formFieldsPage.fillName("Max Kulygin")
@@ -70,7 +70,7 @@ public class FormFieldsTest {
     }
 
     @Test
-    @DisplayName("Кейс 3 (негативный): попытка сабмита без указания имени")
+    @DisplayName("Кейс 4 (негативный): попытка сабмита без указания имени")
     @Owner("Max Kulygin")
     public void testFormSubmissionWithEmptyName() throws IOException {
         formFieldsPage.fillPassword("12345678")
