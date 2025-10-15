@@ -30,7 +30,7 @@
 
 ## Тест-кейсы
 ### Часть 1. Автоматизация. Работа с полями и формами. (тест-кейс от авторов задания)
-#### Кейс 1: 
+#### Кейс 1: успешное заполнение и отправка формы
 Предусловие:
 1. Открыть браузер
 2. Перейти по ссылке
@@ -50,8 +50,10 @@
 **Ожидаемый результат:** появился алерт с текстом Message received!
 
 #### Тест-репорт Allure (к кейсу 1):
-<img width="500" alt="image" src="https://github.com/user-attachments/assets/ae65dc01-1151-40c3-8ab3-45b8ea5a0fe4" />  
-<img width="500" alt="image" src="https://github.com/user-attachments/assets/c2afeb86-aa87-42b1-aac0-c655b9e34250" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/b4fbc99e-ebcd-439d-9021-0ee7e72d6d21" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/7f0def20-5924-4a17-990b-19d42a940cc9" />
+
+
 
 ### Часть 2. Тестовая документация. Проверка формы. (кастомные тест-кейсы)
 #### Кейс 2 (позитивный): успешный сабмит с минимальным количеством данных
@@ -67,7 +69,8 @@
 **Ожидаемый результат:** появился алерт с текстом Message received!
 
 #### Тест-репорт Allure (к кейсу 2):
-<img width="500" alt="image" src="https://github.com/user-attachments/assets/25219f1b-4477-4d31-90ed-5dd568635d09" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/c5f99e99-c3a1-4e7c-bafd-70e48c208c19" />
+
 
 #### Кейс 3 (негативный): попытка сабмита с некорректным форматом электронной почты
 Предусловие:
@@ -83,7 +86,8 @@
 **Ожидаемый результат:** Успешного сабмита с алертом "Message received!" не происходит.
 
 #### Тест-репорт Allure (к кейсу 3):
-<img width="500" alt="image" src="https://github.com/user-attachments/assets/cd45b51e-dacc-4e64-a4c9-fc9fe487d30a" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/52f5dcd0-7e5c-4b1b-a30f-2a48b83f5803" />
+
 
 #### Кейс 4 (негативный): попытка сабмита без указания имени
 Предусловие:
@@ -100,13 +104,14 @@
 Возле поля Name появляется предупреждение с текстом о том, что поле обязательное.
 
 #### Тест-репорт Allure (к кейсу 4):
-<img width="500" alt="image" src="https://github.com/user-attachments/assets/b5ee3623-098a-4c84-bffd-127a65bacdd0" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/ee221622-4031-4085-a424-7add65e4d34a" />
+
 
 ### Тест-репорт Allure (общий):
-<img width="500" alt="image" src="https://github.com/user-attachments/assets/5b75fa07-87b9-4fdd-9394-2fad0c9fee90" />
-<img width="500" alt="image" src="https://github.com/user-attachments/assets/3c0f83d1-357d-46b7-9347-ecd3d7db1887" />
-<img width="500" alt="image" src="https://github.com/user-attachments/assets/af1edae9-2f1f-4a3d-a427-f8e04c7c3455" />
-<img width="500" alt="image" src="https://github.com/user-attachments/assets/0d3b967d-b8c3-41f6-96e4-13b5180fadeb" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/a2fac648-c525-4c7c-834c-c9bc500a75de" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/27900688-6138-4496-9d86-e0b3754f50d2" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/ac122673-26e0-443a-a1c6-6d671192faef" />
+
 
 ## Мои контакты
 - Telegram: @longpastgone
