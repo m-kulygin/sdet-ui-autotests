@@ -3,17 +3,12 @@ import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.IOException;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 @DisplayName("Кейсы тестирования формы practice-automation")
 public class FormFieldsTest {
@@ -49,8 +44,8 @@ public class FormFieldsTest {
                         "Tools count: " + formFieldsPage.countAutomationTools()
                                 + "\nLongest tool name: " + formFieldsPage.findLongestAutomationToolName())
                 .makeFormScreenshot()
-                .clickSubmitButton();
-        assertTrue(isMessageReceivedAlertPresent());
+                .clickSubmitButton()
+                .verifyReceivedAlertPresent();
     }
 
     @Test
@@ -59,8 +54,8 @@ public class FormFieldsTest {
     public void testFormSubmissionWithRequiredOnly() throws IOException {
         formFieldsPage.fillName("Max Kulygin")
                 .makeFormScreenshot()
-                .clickSubmitButton();
-        assertTrue(isMessageReceivedAlertPresent());
+                .clickSubmitButton()
+                .verifyReceivedAlertPresent();
     }
 
     @Test
@@ -70,8 +65,8 @@ public class FormFieldsTest {
         formFieldsPage.fillName("Max Kulygin")
                 .fillEmail("pochta.mailru")
                 .makeFormScreenshot()
-                .clickSubmitButton();
-        assertFalse(isAlertPresent());
+                .clickSubmitButton()
+                .verifyAlertNotPresent();
     }
 
     @Test
@@ -82,9 +77,9 @@ public class FormFieldsTest {
                 .fillEmail("qwe@email.ru")
                 .fillMessage("Nemo")
                 .makeFormScreenshot()
-                .clickSubmitButton();
-        assertTrue(formFieldsPage.isDisplayedNameWarning());
-        assertFalse(isAlertPresent());
+                .clickSubmitButton()
+                .verifyNameFieldWarningDisplayed()
+                .verifyAlertNotPresent();
     }
 
     @After
@@ -92,19 +87,4 @@ public class FormFieldsTest {
         driver.quit();
     }
 
-    private boolean isAlertPresent() {
-        try {
-            driver.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
-    }
-
-    private boolean isMessageReceivedAlertPresent() {
-        Alert alert = driver.switchTo().alert();
-        String alertText = alert.getText();
-        alert.accept();
-        return alertText.equals("Message received!");
-    }
 }

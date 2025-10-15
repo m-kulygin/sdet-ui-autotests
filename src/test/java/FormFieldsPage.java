@@ -1,5 +1,7 @@
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -20,6 +22,8 @@ import java.io.InputStream;
 import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
+
+import static org.junit.Assert.*;
 
 public class FormFieldsPage {
     private final WebDriver driver;
@@ -146,9 +150,32 @@ public class FormFieldsPage {
         return this;
     }
 
+    @Step("Проверка отсутствия алерта")
+    public FormFieldsPage verifyAlertNotPresent() {
+        boolean result;
+        try {
+            driver.switchTo().alert();
+            result = true;
+        } catch (NoAlertPresentException e) {
+            result = false;
+        }
+        assertFalse(result);
+        return this;
+    }
+
+    @Step("Проверка наличия алерта Message received")
+    public FormFieldsPage verifyReceivedAlertPresent() {
+        Alert alert = driver.switchTo().alert();
+        String alertText = alert.getText();
+        alert.accept();
+        assertEquals("Message received!", alertText);
+        return this;
+    }
+
     @Step("Проверка видимости предупреждения о незаполненном поле имени")
-    public boolean isDisplayedNameWarning() {
-        return nameRequiredWarning.isDisplayed();
+    public FormFieldsPage verifyNameFieldWarningDisplayed() {
+        assertTrue(nameField.isDisplayed());
+        return this;
     }
 
     private WebElement getWhenClickable(WebElement element) {
